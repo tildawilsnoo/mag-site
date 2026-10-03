@@ -125,6 +125,8 @@ img.zoom { cursor: zoom-in; }
 }
 .zoombox[open] { display: flex; align-items: center; justify-content: center; }
 .zoombox::backdrop { background: rgba(22, 19, 15, .88); }
+svg.zoom-svg { cursor: zoom-in; }
+.zoombox svg { width: min(calc(100vw - 32px), calc((100dvh - 32px) * 16 / 9)); height: auto; background: #fff; }
 .zoombox img { max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); width: auto; height: auto; background: #fff; }
 .zoombox-x {
   position: fixed;
@@ -145,7 +147,7 @@ img.zoom { cursor: zoom-in; }
 /* ---------- slides rebuilt from SVG (Downstairs Neighbor) ---------- */
 
 .slide svg { display: block; width: 100%; height: auto; }
-.slide text { font-family: "Archivo", "Barlow", sans-serif; }
+.slide text, .zoombox svg text { font-family: "Archivo", "Barlow", sans-serif; }
 .critter { transform-box: fill-box; transform-origin: center; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
 .critter:hover { transform: rotate(-6deg) scale(1.08); }
 @media (prefers-reduced-motion: reduce) { .critter { transition: none; } }
@@ -159,3 +161,15 @@ img.zoom { cursor: zoom-in; }
 .poster { height: auto; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
 .poster:hover { transform: rotate(-2deg) scale(1.03); }
 @media (prefers-reduced-motion: reduce) { .poster { transition: none; } }
+
+/* ---------- about page ---------- */
+
+.about-page { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: center; padding-block: clamp(48px, 8vw, 112px); }
+.about-portrait { margin: 0; }
+.about-portrait img { width: 100%; max-width: 440px; margin-inline: auto; border-radius: 6px; }
+.about-text { max-width: 34em; }
+.about-text h1 { margin: 0 0 24px; font-weight: 300; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -0.01em; }
+.about-text p { margin: 0 0 1em; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.6; }
+.about-contact { margin-top: 28px !important; color: var(--muted); }
+.about-contact a { color: var(--ink); text-underline-offset: 4px; }
+@media (max-width: 760px) { .about-page { grid-template-columns: minmax(0, 1fr); } .about-portrait img { max-width: 280px; } }

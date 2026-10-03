@@ -1,7 +1,7 @@
 // Click to expand: shows an image as large as the screen allows.
 // Click anywhere, press Esc or use × to close.
 (function () {
-  var imgs = document.querySelectorAll('img.zoom');
+  var imgs = document.querySelectorAll('img.zoom, svg.zoom-svg');
   if (!imgs.length) return;
 
   var box = document.createElement('dialog');
@@ -11,15 +11,25 @@
   document.body.appendChild(box);
   var big = box.querySelector('img');
 
+  var copy = null;
   function open(el) {
-    big.src = el.currentSrc || el.src;
-    big.alt = el.alt;
+    if (copy) { copy.remove(); copy = null; }
+    if (el.tagName.toLowerCase() === 'svg') {
+      big.hidden = true;
+      copy = el.cloneNode(true);
+      copy.removeAttribute('tabindex');
+      box.insertBefore(copy, big);
+    } else {
+      big.hidden = false;
+      big.src = el.currentSrc || el.src;
+      big.alt = el.alt;
+    }
     box.showModal();
   }
 
   imgs.forEach(function (el) {
-    el.tabIndex = 0;
-    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    if (el.tagName.toLowerCase() !== 'svg') el.setAttribute('role', 'button');
     el.addEventListener('click', function () { open(el); });
     el.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
