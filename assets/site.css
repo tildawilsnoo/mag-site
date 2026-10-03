@@ -1,0 +1,161 @@
+/* Magdalena Wilson — portfolio */
+
+:root {
+  --paper: #f5f1e8;
+  --ink: #1c1a17;
+  --muted: #6b6458;
+  --rule: #d6cdbb;
+
+  --wrap: 1240px;
+  --gut: clamp(16px, 4vw, 48px);
+  --sans: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gut); }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- header ---------- */
+
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.site-head .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  padding-block: 14px;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+.wordmark img { width: 30px; height: auto; }
+
+.site-nav { display: flex; flex-wrap: wrap; gap: 4px 22px; }
+.site-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: .95rem;
+  padding-block: 4px;
+}
+.site-nav a:hover { color: var(--ink); }
+
+/* ---------- home: work grid ---------- */
+
+.work { padding-block: clamp(40px, 6vw, 72px) clamp(56px, 9vw, 112px); scroll-margin-top: 60px; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 32px);
+}
+.card { display: block; text-decoration: none; }
+.card .thumb { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; background: #fff; }
+.card .thumb img { width: 100%; height: 100%; object-fit: contain; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.card .thumb img.cover { object-fit: cover; }
+.card .thumb img.cutout { padding: 9%; }
+.card:hover .thumb img { transform: scale(1.035); }
+.card .info { margin-top: 14px; }
+.card h3 { margin: 0; font-weight: 500; font-size: 1.2rem; line-height: 1.3; }
+.card .meta { display: block; color: var(--muted); font-style: italic; font-weight: 300; font-size: 1.05rem; }
+.card:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+/* ---------- project page ---------- */
+
+.project { padding-block: clamp(36px, 6vw, 72px) clamp(64px, 10vw, 120px); }
+
+.proj-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-bottom: clamp(28px, 4vw, 48px); }
+.proj-title h1 {
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.proj-title .collab { flex-basis: 100%; margin: 0; font-style: italic; font-weight: 300; color: var(--muted); }
+.proj-title .meta { margin: 0; font-style: italic; font-weight: 300; font-size: clamp(1.2rem, 2.4vw, 1.7rem); color: var(--muted); }
+
+.shot { margin: 0; background: #fff; border-radius: 4px; overflow: hidden; }
+.shot img { width: 100%; }
+.shot + .shot { margin-top: clamp(40px, 6vw, 72px); }
+
+
+
+/* ---------- click to expand ---------- */
+
+img.zoom { cursor: zoom-in; }
+.zoombox {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  cursor: zoom-out;
+}
+.zoombox[open] { display: flex; align-items: center; justify-content: center; }
+.zoombox::backdrop { background: rgba(22, 19, 15, .88); }
+.zoombox img { max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); width: auto; height: auto; background: #fff; }
+.zoombox-x {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .15);
+  color: #fff;
+  font: 400 1.6rem/1 var(--sans);
+  cursor: pointer;
+}
+.zoombox-x:hover { background: rgba(255, 255, 255, .3); }
+.zoombox-x:focus-visible { outline-color: #fff; }
+
+/* ---------- slides rebuilt from SVG (Downstairs Neighbor) ---------- */
+
+.slide svg { display: block; width: 100%; height: auto; }
+.slide text { font-family: "Archivo", "Barlow", sans-serif; }
+.critter { transform-box: fill-box; transform-origin: center; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+.critter:hover { transform: rotate(-6deg) scale(1.08); }
+@media (prefers-reduced-motion: reduce) { .critter { transition: none; } }
+
+/* ---------- HTML slides (Hooch Gig Posters) ---------- */
+
+.hslide { position: relative; aspect-ratio: 16 / 9; container-type: inline-size; }
+.hslide > * { position: absolute; margin: 0; }
+.hs-text { font-family: "Archivo", "Barlow", sans-serif; font-weight: 300; font-size: 1.5625cqw; line-height: 1.3; color: #000; }
+.hs-strong { font-weight: 500; }
+.poster { height: auto; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+.poster:hover { transform: rotate(-2deg) scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .poster { transition: none; } }
