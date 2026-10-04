@@ -185,3 +185,46 @@ body.project-page .proj-title { margin-inline: calc(50% - 50vw); padding: clamp(
 .comic-pages img, .comic-strips img { display: block; width: 100%; height: auto; outline: 1px solid #d9d9d9; outline-offset: -1px; border-radius: 6px; }
 .comic-pages img { max-width: 1000px; margin-inline: auto; }
 .comic-strips img { max-width: 1200px; margin-inline: auto; }
+
+/* ---------- phones and tablets ---------- */
+
+/* About: stack photo and bio until there's room for two real columns */
+@media (max-width: 900px) {
+  .about-top { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .about-portrait { width: min(100%, 360px); margin-inline: auto; }
+  .about-bio { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .about-skills { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Scrolling rows on phones: keep the arrows inside the band so they don't hang off the screen edge */
+@media (max-width: 600px) {
+  .band-arrow { width: 38px; height: 38px; font-size: 1.1rem; }
+  .band-arrow.prev { left: -8px; }
+  .band-arrow.next { right: -8px; }
+}
+
+/* Slides are wide, so on a phone point people to the full-screen view */
+@media (max-width: 700px) {
+  body.project-page .proj-title::after { content: "Tap any slide to see it full screen."; display: block; flex-basis: 100%; margin-top: 10px; font-size: .9rem; font-style: italic; font-weight: 300; color: var(--muted); }
+  .proj-title h1 { font-size: clamp(1.8rem, 9vw, 2.6rem); }
+}
+
+/* Full-screen view on a portrait phone: show slides at full screen height and let people swipe across */
+@media (max-width: 700px) and (orientation: portrait) {
+  .zoombox.wide[open] { justify-content: flex-start; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .zoombox.wide img { max-width: none; max-height: none; height: calc(100dvh - 120px); width: auto; flex: none; margin-inline: 16px; }
+  .zoombox.wide svg { flex: none; height: calc(100dvh - 120px); width: calc((100dvh - 120px) * 16 / 9); margin-inline: 16px; }
+}
+
+/* Phones: centered name with the nav underneath */
+@media (max-width: 600px) {
+  .head-in { flex-direction: column; justify-content: center; gap: 8px; padding-block: 18px 12px; }
+  .logo img { width: min(78vw, 300px); }
+  .site-nav { justify-content: center; }
+}
+
+/* Band labels on one line; on wide screens they sit in their own column, so let them wrap only there */
+@media (max-width: 600px) { .band h2 { white-space: nowrap; } .band h2 br { display: none; } }
+@media (max-width: 900px) { .band h2 { text-align: center; } }

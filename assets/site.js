@@ -24,7 +24,11 @@
       big.src = el.currentSrc || el.src;
       big.alt = el.alt;
     }
+    var w = +el.getAttribute('width') || el.naturalWidth || 16, h = +el.getAttribute('height') || el.naturalHeight || 9;
+    if (el.tagName.toLowerCase() === 'svg') { w = 16; h = 9; }
+    box.classList.toggle('wide', w > h * 1.2);
     box.showModal();
+    box.scrollLeft = 0;
   }
 
   imgs.forEach(function (el) {
