@@ -38,3 +38,27 @@
 
   box.addEventListener('click', function () { box.close(); });
 })();
+
+// Scrolling project rows: arrow buttons page through the cards.
+(function () {
+  document.querySelectorAll('.band-scroll').forEach(function (wrap) {
+    var row = wrap.querySelector('.scroller');
+    var prev = wrap.querySelector('.prev'), next = wrap.querySelector('.next');
+    function update() {
+      var max = row.scrollWidth - row.clientWidth;
+      prev.hidden = row.scrollLeft <= 2;
+      next.hidden = row.scrollLeft >= max - 2;
+    }
+    function page(dir) {
+      var max = row.scrollWidth - row.clientWidth;
+      var target = Math.max(0, Math.min(max, row.scrollLeft + dir * row.clientWidth));
+      var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      row.scrollTo({ left: target, behavior: smooth ? 'smooth' : 'auto' });
+    }
+    prev.addEventListener('click', function () { page(-1); });
+    next.addEventListener('click', function () { page(1); });
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+})();
