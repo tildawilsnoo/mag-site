@@ -131,11 +131,11 @@ svg.zoom-svg { cursor: zoom-in; }
 /* ---------- about page ---------- */
 
 .about-page { max-width: 1920px; margin-inline: auto; padding: clamp(40px, 4vw, 80px) clamp(16px, 6.5vw, 126px) clamp(56px, 6vw, 112px); }
-.about-top { display: grid; grid-template-columns: minmax(0, 371px) minmax(0, 1fr); gap: clamp(32px, 10vw, 192px); align-items: center; }
+.about-top { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: clamp(32px, 10vw, 192px); align-items: stretch; }
 .about-portrait { position: relative; margin: 0; padding: 0 0 20px 20px; }
 .about-portrait::before { content: ""; position: absolute; left: 0; top: 20px; right: 20px; bottom: 0; background: #a9b99c; }
 .about-portrait img { position: relative; display: block; width: 100%; height: auto; }
-.about-bio { padding: clamp(20px, 2vw, 40px); background: #dfe6d3; }
+.about-bio { display: flex; flex-direction: column; justify-content: center; padding: clamp(20px, 2vw, 40px); background: #dfe6d3; }
 .about-bio h1 { margin: 0 0 .6em; font-weight: 700; font-size: clamp(1.4rem, 1.9vw, 2.25rem); line-height: 1.2; }
 .about-bio p { margin: 0 0 1em; font-size: clamp(1.05rem, 1.4vw, 1.5rem); line-height: 1.5; }
 .about-bio p:last-child { margin-bottom: 0; }
@@ -143,11 +143,11 @@ svg.zoom-svg { cursor: zoom-in; }
 .skill-box { padding: clamp(20px, 1.8vw, 34px); background: #dfe6d3; }
 .skill-box h2 { margin: 0 0 12px; font-weight: 700; font-size: clamp(1.3rem, 1.9vw, 2.25rem); }
 .skill-box ul { margin: 0; padding-left: 1.2em; font-size: clamp(1rem, 1.3vw, 1.4rem); line-height: 1.45; }
-.about-bio .about-email { margin-top: 1.4em; padding-top: 1em; border-top: 1px solid #b9c6ad; }
+.about-email { margin: 0; }
 .about-email span { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
-.about-email a { font-weight: 700; font-size: clamp(1.4rem, 2.2vw, 2.1rem); color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.about-email a { display: inline-block; margin-top: 4px; font-weight: 700; font-size: clamp(1.15rem, 1.6vw, 1.6rem); color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .about-email a:hover { text-decoration-thickness: 3px; }
-@media (max-width: 760px) { .about-top, .about-skills { grid-template-columns: minmax(0, 1fr); } .about-portrait { max-width: 300px; } }
+@media (max-width: 760px) { .about-top, .about-skills { grid-template-columns: minmax(0, 1fr); } }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -191,7 +191,6 @@ body.project-page .proj-title { margin-inline: calc(50% - 50vw); padding: clamp(
 /* About: stack photo and bio until there's room for two real columns */
 @media (max-width: 900px) {
   .about-top { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .about-portrait { width: min(100%, 360px); margin-inline: auto; }
   .about-bio { margin-top: 0; }
 }
 @media (max-width: 600px) {
@@ -228,3 +227,20 @@ body.project-page .proj-title { margin-inline: calc(50% - 50vw); padding: clamp(
 /* Band labels on one line; on wide screens they sit in their own column, so let them wrap only there */
 @media (max-width: 600px) { .band h2 { white-space: nowrap; } .band h2 br { display: none; } }
 @media (max-width: 900px) { .band h2 { text-align: center; } }
+
+/* About: rounded boxes and one even gap between everything */
+.about-page { --about-gap: clamp(20px, 3vw, 44px); }
+.about-top { gap: var(--about-gap); }
+.about-skills { gap: var(--about-gap); margin-top: var(--about-gap); }
+.about-bio, .about-contact, .skill-box { border-radius: 12px; }
+.about-portrait img, .about-portrait::before { border-radius: 12px; }
+.about-bio a { color: var(--ink); text-underline-offset: 3px; }
+.about-portrait { display: flex; }
+.about-portrait img { height: 100%; object-fit: cover; }
+
+/* About: the bio sets the row height (even padding all round); the photo fills that height */
+@media (min-width: 901px) {
+  .about-bio { justify-content: flex-start; padding: clamp(24px, 2.4vw, 44px); }
+  .about-portrait { display: block; min-height: 0; }
+  .about-portrait img { position: absolute; top: 0; right: 0; width: calc(100% - 20px); height: calc(100% - 20px); object-fit: cover; object-position: center 30%; }
+}
