@@ -244,3 +244,7 @@ body.project-page .proj-title { margin-inline: calc(50% - 50vw); padding: clamp(
   .about-portrait { display: block; min-height: 0; }
   .about-portrait img { position: absolute; top: 0; right: 0; width: calc(100% - 20px); height: calc(100% - 20px); object-fit: cover; object-position: center 30%; }
 }
+/* Skills boxes: same even padding as the bio, with the heading/list line spacing trimmed so the text sits evenly */
+.skill-box { padding: clamp(24px, 2.4vw, 44px); }
+.skill-box h2 { line-height: 1; margin-top: -0.08em; }
+.skill-box ul { margin-bottom: -0.2em; }
